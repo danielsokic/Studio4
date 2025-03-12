@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GameManager : SingletonMonoBehavior<GameManager>
 {
+    [SerializeField] private CoinCounterUI coinCounter;
     [SerializeField] private int score = 0;
     [SerializeField] private TextMeshProUGUI scoreText;
 
@@ -15,7 +16,15 @@ public class GameManager : SingletonMonoBehavior<GameManager>
 
     public void IncreaseScore()
     {
-        score++;
-        scoreText.text = $"Score: {score}";
+         score++;
+    if (coinCounter != null)
+    {
+        coinCounter.UpdateScore(score);
+    }
+    else
+    {
+        Debug.LogError("coinCounter reference is missing in GameManager!");
+    }
+
     }
 }
